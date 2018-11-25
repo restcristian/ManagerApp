@@ -32,6 +32,18 @@ class LoginForm extends Component {
         }
     }
 
+    renderButton() {
+        if (this.props.loading) {
+            return <Spinner size="large" />
+        }
+
+        return (
+            <Button onPress={this.onButtonPress}>
+                Login
+            </Button>
+        );
+    }
+
 
 
     render() {
@@ -58,9 +70,7 @@ class LoginForm extends Component {
                 </CardSection>
                 {this.renderError()}
                 <CardSection>
-                    <Button onPress={this.onButtonPress}>
-                        Login
-                    </Button>
+                    {this.renderButton()}
                 </CardSection>
             </Card>
         );
@@ -68,10 +78,10 @@ class LoginForm extends Component {
 
 }
 const styles = StyleSheet.create({
-    errorTextStyle:{
-        fontSize:20,
-        alignSelf:'center',
-        color:'red'
+    errorTextStyle: {
+        fontSize: 20,
+        alignSelf: 'center',
+        color: 'red'
     }
 });
 
@@ -79,7 +89,8 @@ const mapStateToProps = state => {
     return {
         email: state.auth.email,
         password: state.auth.password,
-        error: state.auth.error
+        error: state.auth.error,
+        loading: state.auth.loading
     };
 };
 
