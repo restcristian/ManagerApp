@@ -1,5 +1,6 @@
 import * as types from './types';
 import firebase from 'firebase';
+import { Actions } from 'react-native-router-flux'
 
 export const emailChanged = text => {
     return {
@@ -35,6 +36,8 @@ const loginUserSucess = (dispatch, user) => {
         type: types.LOGIN_USER_SUCCESS,
         payload: user
     });
+
+    Actions.employeeList();
 
 };
 
