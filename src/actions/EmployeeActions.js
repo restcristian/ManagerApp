@@ -38,3 +38,19 @@ export const employeesFetch = () => {
             });
     };
 };
+
+export const employeeSave = ({ name, phone, shift, id }) => {
+    const { currentUser } = firebase.auth();
+
+    return dispatch => {
+        firebase.database().ref(`/users/${currentUser.uid}/employees/${id}`)
+            .set({ name, phone, shift })
+            .then(() => {
+                Actions.pop();
+                dispatch({
+                    type:types.EMPLOYEE_SAVE_SUCCESS
+                });
+               
+            });
+    };
+};

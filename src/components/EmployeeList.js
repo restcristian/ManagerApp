@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList } from 'react-native';
+import {  Text, FlatList } from 'react-native';
 import { employeesFetch } from '../actions';
 import { connect } from 'react-redux';
+import ListItem from './ListItem';
 
 class EmployeeList extends Component {
 
@@ -12,18 +13,18 @@ class EmployeeList extends Component {
 
     }
     renderEmployee = ({ item }) => {
-        return <Text>Hello Employee</Text>;
+        console.log(item);
+        // return <Text>hello</Text>
+        return <ListItem employee={item} />;
     }
-    
+
     render() {
-        // console.log('employeeprops', this.props.employees)
         return (
             <FlatList
                 data={this.props.employees}
                 renderItem={this.renderEmployee}
                 keyExtractor={item => item.id}
             />
-
 
         );
     }
@@ -34,14 +35,13 @@ const mapStateToProps = (state) => {
     const { employees } = state;
     const keys = Object.keys(employees);
 
-    let employeeList = [];
-
-    keys.forEach(id => {
+    let employeeList = keys.map(id => {
         const tempEmployee = {
-            id: id,
+            id,
             ...employees[id]
         };
-        employeeList.push(tempEmployee);
+        return tempEmployee;
+
     });
 
     return {
