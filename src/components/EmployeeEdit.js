@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
-import { Card, CardSection, Button } from './common';
+import { Card, CardSection, Button, Confirm } from './common';
 import { connect } from 'react-redux';
 import EmployeeForm from './EmployeeForm';
 import { employeeUpdate, employeeSave } from '../actions';
 import Communications from 'react-native-communications';
 
 class EmployeeEdit extends Component {
+    state = {
+        showModal: false
+    }
     componentDidMount() {
         const { employee } = this.props;
         const employeeKeys = Object.keys(employee);
@@ -33,6 +36,15 @@ class EmployeeEdit extends Component {
 
     }
 
+    onFirePress = () => {
+        this.setState((prevState) => {
+            return {
+                ...prevState,
+                showModal: !prevState.showModal
+            };
+        });
+    }
+
     render() {
         return (
             <Card>
@@ -47,6 +59,17 @@ class EmployeeEdit extends Component {
                         Text Schedule
                     </Button>
                 </CardSection>
+                <CardSection>
+                    <Button onPress={this.onFirePress}>
+                        Fire Employee
+                    </Button>
+                </CardSection>
+                <Confirm
+                    visible={this.state.showModal}
+
+                >
+                    Are you sure you want to delete this?
+                </Confirm>
             </Card>
         );
     }
