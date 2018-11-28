@@ -14,6 +14,8 @@ export default (state = INITIAL_STATE, action) => {
                 ...state,
                 [prop]: value
             };
+        case types.EMPLOYEE_CREATE:
+            return INITIAL_STATE;
         default:
             return state;
     }
